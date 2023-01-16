@@ -1,0 +1,51 @@
+CREATE TABLE departament
+(
+  id INT NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE building
+(
+  id INT NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  addresLine1 VARCHAR(100) NOT NULL,
+  addressLine2 VARCHAR(100) NOT NULL,
+  idDepartament INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (idDepartament) REFERENCES departament(id)
+);
+
+CREATE TABLE floor
+(
+  id INT NOT NULL,
+  number INT NOT NULL,
+  idBuidling INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (idBuidling) REFERENCES building(id)
+);
+
+CREATE TABLE users
+(
+  id INT NOT NULL,
+  login VARCHAR(50) NOT NULL,
+  password VARCHAR(50) NOT NULL,
+  firstName VARCHAR(50) NOT NULL,
+  lastName VARCHAR(50) NOT NULL,
+  title VARCHAR(50) NOT NULL,
+  idDepartament INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (idDepartament) REFERENCES departament(id)
+);
+
+CREATE TABLE room
+(
+  id INT NOT NULL,
+  type VARCHAR(50) NOT NULL,
+  floor INT NOT NULL,
+  idFloor INT NOT NULL,
+  idOwner INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (idFloor) REFERENCES floor(id),
+  FOREIGN KEY (idOwner) REFERENCES users(id)
+);
